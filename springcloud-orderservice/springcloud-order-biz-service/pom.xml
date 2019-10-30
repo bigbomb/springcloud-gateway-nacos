@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+     <parent>
+        <groupId>com.dev.project</groupId>
+        <artifactId>orderservice</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <packaging>jar</packaging>
+
+    <artifactId>springcloud-order-biz-service</artifactId>
+    <name>springcloud-order-biz-service</name>
+    <description>springcloud-order-biz-service</description>
+
+   
+
+    <dependencies>
+  		<dependency>
+           <groupId>com.dev.project</groupId>
+    	   <artifactId>springcloud-order-integration</artifactId>
+        </dependency>
+ 
+    </dependencies>
+
+   <distributionManagement>
+        <snapshotRepository>
+            <!--和settings中的一致-->
+            <id>third</id>
+            <url>http://192.168.25.98:8081/repository/third/</url>
+        </snapshotRepository>
+        
+    </distributionManagement>
+
+</project>
