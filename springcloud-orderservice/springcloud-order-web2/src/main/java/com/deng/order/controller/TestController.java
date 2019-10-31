@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.deng.order.client.service.Feignclient;
 import com.deng.order.common.entity.TestUser;
 import com.deng.order.service.KafkaProviderService;
 import com.deng.order.service.RedisService;
@@ -26,7 +27,8 @@ public class TestController {
     @Autowired
     private RedisService redisService;
     
-    
+    @Autowired
+    private Feignclient feignclient;
     @GetMapping("test")
     public String test2(){
         return "22222";
@@ -35,6 +37,12 @@ public class TestController {
     @GetMapping("next")
     public String next(){
         return "next2";
+    }
+    
+    @GetMapping("feignget")
+    public String feignget(){
+    	String result = feignclient.getTest();
+        return result;
     }
     
     @PostMapping("send")

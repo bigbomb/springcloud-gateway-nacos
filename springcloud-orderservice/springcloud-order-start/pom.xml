@@ -22,10 +22,10 @@
     	   <artifactId>springcloud-order-biz-service</artifactId>
         </dependency>
 
-		<dependency>
+		<!-- <dependency>
            <groupId>com.dev.project</groupId>
     	   <artifactId>springcloud-order-client</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
            <groupId>com.dev.project</groupId>
     	   <artifactId>springcloud-order-common</artifactId>

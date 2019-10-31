@@ -30,6 +30,10 @@
            <groupId>com.dev.project</groupId>
     	   <artifactId>springcloud-order-common</artifactId>
         </dependency>
+        <dependency>
+           <groupId>com.dev.project</groupId>
+    	   <artifactId>springcloud-order-client</artifactId>
+        </dependency>
     </dependencies>
 	<distributionManagement>
         <snapshotRepository>

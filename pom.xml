@@ -18,6 +18,7 @@
         <context.version>2.0.4.RELEASE</context.version>
         <java.version>1.8</java.version>
         <jwt.version>0.9.1</jwt.version>
+        <feignclient.version>1.4.7.RELEASE</feignclient.version>
     </properties>
 	
 	<parent>
@@ -63,6 +64,11 @@
 			    <artifactId>nacos-client</artifactId>
 			    <version>${nacos.client.version}</version>
 			</dependency>
+			 <dependency>
+                <groupId>org.springframework.cloud</groupId>
+           		<artifactId>spring-cloud-starter-feign</artifactId>
+           		<version>${feignclient.version}</version>
+            </dependency>
 			<dependency>
 			    <groupId>io.jsonwebtoken</groupId>
 			    <artifactId>jjwt</artifactId>
