@@ -30,13 +30,13 @@ public class TestConrtroller {
 		}
         return token;
     }
-
-    @GetMapping("/fallback")
-    public ErrorResponse fallback() {
-	    ErrorResponse errorResponse = new ErrorResponse();
-	    errorResponse.setCode(500);
-	    errorResponse.setMessage("降级处理");
-		return errorResponse;
-        // return something
-    }
+//
+//    @GetMapping("fallback1")
+//    public ErrorResponse fallback() {
+//	    ErrorResponse errorResponse = new ErrorResponse();
+//	    errorResponse.setCode(500);
+//	    errorResponse.setMessage("降级处理");
+//		return errorResponse;
+//        // return something
+//    }
 }

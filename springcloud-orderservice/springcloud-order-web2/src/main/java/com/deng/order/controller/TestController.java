@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deng.order.client.service.Feignclient;
+import com.deng.order.common.entity.Result;
 import com.deng.order.common.entity.TestUser;
 import com.deng.order.service.KafkaProviderService;
 import com.deng.order.service.RedisService;
@@ -40,8 +41,8 @@ public class TestController {
     }
     
     @GetMapping("feignget")
-    public String feignget(){
-    	String result = feignclient.getTest();
+    public Result feignget(){
+    	Result result = feignclient.getTest();
         return result;
     }
     

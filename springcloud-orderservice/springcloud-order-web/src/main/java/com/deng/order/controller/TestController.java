@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.deng.order.common.contant.SystemConstant;
+import com.deng.order.common.entity.Result;
 import com.deng.order.common.entity.TestUser;
 import com.deng.order.service.KafkaProviderService;
 import com.deng.order.service.RedisService;
@@ -28,8 +31,9 @@ public class TestController {
    
     
     @GetMapping("test")
-    public String test2(){
-        return "getfeignClient";
+    public Result test2(){
+    	Result result = Result.builder().code(SystemConstant.RESULT_CODE_SUCCESS).message(SystemConstant.RESULT_SERVICE_SUCCESS).build();
+        return result;
     }
 
     @GetMapping("next")
