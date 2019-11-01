@@ -1,4 +1,4 @@
-package com.deng.order.common.contant;
+package com.deng.order.common.constant;
 
 public class SystemConstant {
 

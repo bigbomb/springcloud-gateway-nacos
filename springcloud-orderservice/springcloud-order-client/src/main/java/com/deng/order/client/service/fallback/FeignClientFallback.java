@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.deng.order.client.service.Feignclient;
-import com.deng.order.common.contant.SystemConstant;
+import com.deng.order.common.constant.SystemConstant;
 import com.deng.order.common.entity.Result;
 
 import feign.hystrix.FallbackFactory;

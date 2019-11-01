@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deng.order.common.contant.SystemConstant;
+import com.deng.order.common.constant.SystemConstant;
 import com.deng.order.common.entity.Result;
 import com.deng.order.common.entity.TestUser;
 import com.deng.order.service.KafkaProviderService;
