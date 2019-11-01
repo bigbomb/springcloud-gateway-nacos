@@ -1,13 +1,13 @@
 快速开始
 1、先觉条件
 
- # git
- # java8
- # mysql 5.6
- # redis 5.0+
- # elasticsearch 7.2.0
- # kafka_2.11-2.3.0
- # nacos 1.1.4
+  git
+  java8
+  mysql 5.6
+  redis 5.0+
+  elasticsearch 7.2.0
+  kafka_2.11-2.3.0
+  nacos 1.1.4
 注:项目所有配置参数全部由nacos管理，保证了项目参数的保密性，如有需要动态变更的，可以在项目中采用@RefreshScope来达到实时刷新
 
 2、项目结构
