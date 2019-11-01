@@ -16,10 +16,19 @@
    
 
     <dependencies>
- 			<dependency>
-		        <groupId>com.baomidou</groupId>
-		        <artifactId>mybatis-plus-boot-starter</artifactId>
-		    </dependency>
+		<dependency>
+	        <groupId>com.baomidou</groupId>
+	        <artifactId>mybatis-plus-boot-starter</artifactId>
+	    </dependency>
+	    <dependency>
+           <groupId>com.dev.project</groupId>
+    	   <artifactId>springcloud-order-common</artifactId>
+        </dependency>
+        <dependency>  
+		    <groupId>org.mybatis</groupId>  
+		    <artifactId>mybatis-typehandlers-jsr310</artifactId>  
+		    <version>1.0.2</version>  
+		</dependency>  
     </dependencies>
 
 

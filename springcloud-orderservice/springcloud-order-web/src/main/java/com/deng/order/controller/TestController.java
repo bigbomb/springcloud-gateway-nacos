@@ -2,10 +2,9 @@ package com.deng.order.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deng.order.common.constant.SystemConstant;
 import com.deng.order.common.entity.Result;
+import com.deng.order.common.entity.SysUser;
 import com.deng.order.common.entity.TestUser;
 import com.deng.order.service.KafkaProviderService;
 import com.deng.order.service.RedisService;
+import com.deng.order.service.SysUserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @RestController
@@ -28,11 +31,22 @@ public class TestController {
     @Autowired
     private RedisService redisService;
     
-   
+    @Autowired
+    private SysUserService sysUserService;
+    
+    @Autowired
+    private ObjectMapper objectMapper;
     
     @GetMapping("test")
     public Result test2(){
-    	Result result = Result.builder().code(SystemConstant.RESULT_CODE_SUCCESS).message(SystemConstant.RESULT_SERVICE_SUCCESS).build();
+    	List<SysUser> userlist = sysUserService.list();
+    	Result result = null;
+		try {
+			result = Result.builder().code(SystemConstant.RESULT_CODE_SUCCESS).message(SystemConstant.RESULT_SERVICE_SUCCESS).body(objectMapper.writeValueAsString(userlist)).build();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return result;
     }
 

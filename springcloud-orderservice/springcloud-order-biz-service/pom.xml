@@ -20,7 +20,14 @@
            <groupId>com.dev.project</groupId>
     	   <artifactId>springcloud-order-integration</artifactId>
         </dependency>
- 
+ 		<dependency>
+		    <groupId>com.baomidou</groupId>
+		    <artifactId>mybatis-plus-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+           <groupId>com.dev.project</groupId>
+    	   <artifactId>springcloud-order-dao</artifactId>
+        </dependency>
     </dependencies>
 
    <distributionManagement>
