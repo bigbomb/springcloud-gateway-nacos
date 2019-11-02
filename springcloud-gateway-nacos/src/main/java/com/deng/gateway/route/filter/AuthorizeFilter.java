@@ -62,7 +62,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 				    		.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
 				    		.body(tokens)
 				    		.build();
-                    byte[] bits = result.toString().getBytes(StandardCharsets.UTF_8);
+                    byte[] bits = JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8);
                     DataBuffer buffer = response.bufferFactory().wrap(bits);
                     response.setStatusCode(HttpStatus.UNAUTHORIZED);
                     response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
