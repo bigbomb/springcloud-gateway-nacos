@@ -62,14 +62,22 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 				    		.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
 				    		.body(tokens)
 				    		.build();
-                    byte[] bits = JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8);
-                    DataBuffer buffer = response.bufferFactory().wrap(bits);
-                    response.setStatusCode(HttpStatus.UNAUTHORIZED);
-                    response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
-                    return response.writeWith(Mono.just(buffer));
+    	            DataBuffer buffer = doBuffer(result,response);
+    	            return response.writeWith(Mono.just(buffer));
     	        }
     	        else {
     	        	 Claims accessclaims = JwtUtil.getClaimByToken(accesstoken);
+    	        	 if(REFRESH_TOKEN.equals(accessclaims.getSubject()))
+	        			 {
+    	        		 log.info( "accesstoken or refreshtoken is empty ..." );
+    	    	            result = Result.builder()
+    					    		.message("accesstoken不能是refreshtoken")
+    					    		.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
+    					    		.body(tokens)
+    					    		.build();
+    	    	            DataBuffer buffer = doBuffer(result,response);
+    	    	            return response.writeWith(Mono.just(buffer));
+	        			 }
     	        	 Claims refreshclaims = JwtUtil.getClaimByToken(refreshtoken);
     	             System.out.println("TOKEN: " + accessclaims);
 
@@ -112,17 +120,23 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 								}
 							  
 						}
-	                     byte[] bits = JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8);
-	                     DataBuffer buffer = response.bufferFactory().wrap(bits);
-//	                     response.setStatusCode(HttpStatus.UNAUTHORIZED);
-	                     response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
-	                     return response.writeWith(Mono.just(buffer));
+    	            	 DataBuffer buffer = doBuffer(result,response);
+    	    	         return response.writeWith(Mono.just(buffer));
     	             }
     	        }
     		
     	}
        
         return chain.filter(exchange);
+    }
+    
+    public DataBuffer doBuffer(Result result,ServerHttpResponse response )
+    {
+    	 byte[] bits = JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8);
+         DataBuffer buffer = response.bufferFactory().wrap(bits);
+         response.setStatusCode(HttpStatus.UNAUTHORIZED);
+         response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
+         return buffer;
     }
 
     /**

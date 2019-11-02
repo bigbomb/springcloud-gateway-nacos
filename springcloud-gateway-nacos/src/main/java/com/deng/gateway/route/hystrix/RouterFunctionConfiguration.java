@@ -14,9 +14,16 @@ public class RouterFunctionConfiguration {
     private HystrixFallbackHandler hystrixFallbackHandler;
 
     @Bean
-    public RouterFunction routerFunction() {
+    public RouterFunction routerGetFunction() {
         return RouterFunctions.route(
             RequestPredicates.GET("/fallback")
+                .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), hystrixFallbackHandler);
+    }
+    
+    @Bean
+    public RouterFunction routerPostFunction() {
+        return RouterFunctions.route(
+            RequestPredicates.POST("/fallback")
                 .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), hystrixFallbackHandler);
     }
 
