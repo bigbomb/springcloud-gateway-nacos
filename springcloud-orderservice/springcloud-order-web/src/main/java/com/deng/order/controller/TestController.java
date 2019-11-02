@@ -38,15 +38,14 @@ public class TestController {
     private ObjectMapper objectMapper;
     
     @GetMapping("test")
-    public Result test2(){
+    public Result test2() throws JsonProcessingException{
     	List<SysUser> userlist = sysUserService.list();
     	Result result = null;
-		try {
-			result = Result.builder().code(SystemConstant.RESULT_CODE_SUCCESS).message(SystemConstant.RESULT_SERVICE_SUCCESS).body(objectMapper.writeValueAsString(userlist)).build();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		result = Result.builder()
+				.code(SystemConstant.RESULT_CODE_SUCCESS)
+				.message(SystemConstant.RESULT_SERVICE_SUCCESS)
+				.body(objectMapper.writeValueAsString(userlist))
+				.build();
         return result;
     }
 

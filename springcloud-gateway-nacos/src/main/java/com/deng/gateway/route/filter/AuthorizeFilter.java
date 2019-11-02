@@ -15,8 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.deng.gateway.entity.StatusCodeConstants;
+import com.deng.gateway.constants.StatusCodeConstants;
+import com.deng.gateway.entity.Result;
+import com.deng.gateway.entity.Tokens;
 import com.deng.gateway.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import reactor.core.publisher.Mono;
@@ -35,7 +39,8 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
     
     private static final Logger log = LoggerFactory.getLogger( AuthorizeFilter.class );
 
-    private static final String AUTHORIZE_TOKEN = "token";
+    private static final String ACCESS_TOKEN = "accesstoken";
+    private static final String REFRESH_TOKEN = "refreshtoken";
 
     
     @Override
@@ -45,32 +50,71 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
     	if(!isNotCheck(url))
     	{
     		ServerHttpResponse response = exchange.getResponse();
-    		 String token = exchange.getRequest().getQueryParams().getFirst( AUTHORIZE_TOKEN );
+    		 String accesstoken = exchange.getRequest().getQueryParams().getFirst( ACCESS_TOKEN );
+    		 String refreshtoken = exchange.getRequest().getQueryParams().getFirst( REFRESH_TOKEN );
+    		 Result result = null;
+    		 Tokens tokens = null;
     		   //判断token是否为空
-    	        if ( StringUtils.isBlank( token )) {
-    	            log.info( "token is empty ..." );
-    	            JSONObject message = new JSONObject();
-                    message.put("code", StatusCodeConstants.TOKEN_NONE);
-                    message.put("message", "鉴权失败，无token");
-                    byte[] bits = message.toString().getBytes(StandardCharsets.UTF_8);
+    	        if ( StringUtils.isBlank( accesstoken ) || StringUtils.isBlank( refreshtoken )) {
+    	            log.info( "accesstoken or refreshtoken is empty ..." );
+    	            result = Result.builder()
+				    		.message("accesstoken或者refreshtoken不能为空")
+				    		.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
+				    		.body(tokens)
+				    		.build();
+                    byte[] bits = result.toString().getBytes(StandardCharsets.UTF_8);
                     DataBuffer buffer = response.bufferFactory().wrap(bits);
                     response.setStatusCode(HttpStatus.UNAUTHORIZED);
                     response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
                     return response.writeWith(Mono.just(buffer));
     	        }
     	        else {
-    	        	 Claims claims = JwtUtil.getClaimByToken(token);
-    	             System.out.println("TOKEN: " + claims);
+    	        	 Claims accessclaims = JwtUtil.getClaimByToken(accesstoken);
+    	        	 Claims refreshclaims = JwtUtil.getClaimByToken(refreshtoken);
+    	             System.out.println("TOKEN: " + accessclaims);
+
     	             // 判断签名是否存在或过期
-    	             boolean b = claims==null || claims.isEmpty() || JwtUtil.isTokenExpired(claims.getExpiration());
+    	             boolean b = accessclaims==null || accessclaims.isEmpty() || JwtUtil.isTokenExpired(accessclaims.getExpiration());
     	             if (b) {
-    	            	 log.info( "token is Expired ..." );
-    	            	 JSONObject message = new JSONObject();
-	                     message.put("code", StatusCodeConstants.TOKEN_NONE);
-	                     message.put("message", "鉴权失败，token失效");
-	                     byte[] bits = message.toString().getBytes(StandardCharsets.UTF_8);
+    	            	 boolean c = refreshclaims==null || refreshclaims.isEmpty() || JwtUtil.isTokenExpired(refreshclaims.getExpiration());
+    	            	 if(!c)
+    	            	 {
+    	            		 try {
+    	            			log.info( "accesstoken is Expired ..." );
+								String accessToken = JwtUtil.createJWT("bigbomb", "bigbomb", "account", 60*1000);
+							    tokens = Tokens.builder()
+							    		.accessToken(accessToken)
+							    		.build();
+								result = Result.builder()
+										.message("旧的accesstoken失效，重新生成新的accesstoken")
+										.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
+										.body(tokens)
+										.build();
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+    	            	 }
+    	            	 else {
+    	            		    log.info( "refreshtoken is Expired ..." );
+    	            		    String refreshToken = null;
+								try {
+									refreshToken = JwtUtil.createJWT("system", "system", "refreshToken", 1296000*1000);
+									tokens = Tokens.builder().refreshToken(refreshToken).build();
+								    result = Result.builder()
+								    		.message("旧的refreshtoken失效，重新生成新的refreshtoken")
+								    		.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
+								    		.body(tokens)
+								    		.build();
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							  
+						}
+	                     byte[] bits = JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8);
 	                     DataBuffer buffer = response.bufferFactory().wrap(bits);
-	                     response.setStatusCode(HttpStatus.UNAUTHORIZED);
+//	                     response.setStatusCode(HttpStatus.UNAUTHORIZED);
 	                     response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
 	                     return response.writeWith(Mono.just(buffer));
     	             }

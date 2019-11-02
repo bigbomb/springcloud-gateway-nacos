@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.deng.gateway.entity.ErrorResponse;
+import com.deng.gateway.constants.StatusCodeConstants;
+import com.deng.gateway.entity.Result;
+import com.deng.gateway.entity.Tokens;
 import com.deng.gateway.utils.JwtUtil;
 
 @RestController
@@ -20,15 +22,21 @@ public class TestConrtroller {
     }
     
     @GetMapping("getToken")
-    public String getToken() {
-    	String token = null;
+    public Result getToken() {
+    	String accessToken = null;
+    	String refreshToken = null;
+    	Result<?> result = null;
+    	Tokens tokens = null;
     	try {
-			token = JwtUtil.createJWT("bigbomb", "bigbomb", "account", 60*1000);
+			accessToken = JwtUtil.createJWT("bigbomb", "bigbomb", "account", 60*1000);
+			refreshToken = JwtUtil.createJWT("system", "system", "refreshToken", 1296000*1000);
+		    tokens = Tokens.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+			result = Result.builder().code(StatusCodeConstants.STATUS_SUCCESS).body(tokens).build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return token;
+        return result;
     }
 //
 //    @GetMapping("fallback1")
