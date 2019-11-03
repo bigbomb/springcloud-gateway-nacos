@@ -21,7 +21,7 @@ public class KafkaProviderService {
      * 消息 TOPIC
      */
 	
-    private static final String TOPIC = "log_group";
+    private static final String TOPIC = "test_topic";
     
     @Autowired
     private Producer<String, Object> producer;

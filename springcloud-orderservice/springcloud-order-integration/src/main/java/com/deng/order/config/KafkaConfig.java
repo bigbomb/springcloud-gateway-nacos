@@ -21,7 +21,7 @@ public class KafkaConfig implements InitializingBean {
     @Value("${kafka.servers}")
     public String brokerList;
 
-    public static final String topic = "log_group";
+    public static final String topic = "test_topic";
 
     public final String groupId = "group.01";
 

@@ -1,11 +1,9 @@
 package com.deng.order.common.entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-
+import java.time.LocalDateTime;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author bigbomb
- * @since 2019-11-01
+ * @since 2019-11-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -61,7 +59,6 @@ public class SysUser implements Serializable {
     /**
      * 修改时间
      */
- 
     private LocalDateTime updateTime;
 
     /**

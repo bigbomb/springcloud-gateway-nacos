@@ -2,7 +2,6 @@ package com.deng.order.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deng.order.common.constant.SystemConstant;
-import com.deng.order.common.entity.Result;
-import com.deng.order.common.entity.SysUser;
 import com.deng.order.common.entity.TestUser;
+import com.deng.order.common.enums.ExceptionTypeEnum;
+import com.deng.order.common.exception.BusinessException;
 import com.deng.order.service.KafkaProviderService;
 import com.deng.order.service.RedisService;
-import com.deng.order.service.SysUserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @RestController
@@ -31,29 +26,20 @@ public class TestController {
     @Autowired
     private RedisService redisService;
     
-    @Autowired
-    private SysUserService sysUserService;
-    
-    @Autowired
-    private ObjectMapper objectMapper;
-    
-    @GetMapping("test")
-    public Result test2() throws JsonProcessingException{
-    	List<SysUser> userlist = sysUserService.list();
-    	Result result = null;
-		result = Result.builder()
-				.code(SystemConstant.RESULT_CODE_SUCCESS)
-				.message(SystemConstant.RESULT_SERVICE_SUCCESS)
-				.body(objectMapper.writeValueAsString(userlist))
-				.build();
-        return result;
-    }
-
+  
+    /**
+     * 测试统一异常
+     * @return
+     */
     @GetMapping("next")
     public String next(){
-        return "next1";
+    	throw new BusinessException(ExceptionTypeEnum.DATA_ERROR);
     }
     
+    /**
+     * 测试kafka的功能
+     * @return
+     */
     @PostMapping("send")
     public String kafkasend() {
     	LocalDateTime localDateTime = LocalDateTime.now();
@@ -62,8 +48,10 @@ public class TestController {
     	
     }
     
-  
-
+    /**
+     * 测试redis的功能
+     * @return
+     */
     @RequestMapping("/user/save")
     public String saveUser() {
         TestUser user = new TestUser();
@@ -81,6 +69,10 @@ public class TestController {
         return "3333";
     }
 
+    /**
+     * 测试redis的功能
+     * @return
+     */
     @RequestMapping("/user/get")
     public String getUser() {
     	String getUserString = redisService.opsForValueGet();

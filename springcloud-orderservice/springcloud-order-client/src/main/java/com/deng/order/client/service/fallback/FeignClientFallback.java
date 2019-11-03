@@ -23,7 +23,7 @@ public class FeignClientFallback implements FallbackFactory<Feignclient> {
         }
         return new Feignclient() {
             @Override
-            public Result getTest(){
+            public Result<Object> getTest(){
                 return Result.builder().code(SystemConstant.RESULT_CODE_FAILURE).message(SystemConstant.RESULT_SERVICE_FAILURE).build();
             }
         };

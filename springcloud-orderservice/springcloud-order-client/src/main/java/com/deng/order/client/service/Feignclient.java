@@ -11,5 +11,5 @@ import com.deng.order.common.entity.Result;
 @FeignClient(name = "order-service-dev",fallbackFactory = FeignClientFallback.class)
 public interface Feignclient {
 	@RequestMapping(value = "/test", method= RequestMethod.GET)
-    Result getTest() ;
+    Result<Object> getTest() ;
 }

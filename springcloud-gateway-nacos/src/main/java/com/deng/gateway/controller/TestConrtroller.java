@@ -39,9 +39,9 @@ public class TestConrtroller {
         return result;
     }
 //
-//    @GetMapping("fallback1")
-//    public ErrorResponse fallback() {
-//	    ErrorResponse errorResponse = new ErrorResponse();
+//    @GetMapping("fallback")
+//    public Result fallback() {
+//	    Result errorResponse = new Result();
 //	    errorResponse.setCode(500);
 //	    errorResponse.setMessage("降级处理");
 //		return errorResponse;

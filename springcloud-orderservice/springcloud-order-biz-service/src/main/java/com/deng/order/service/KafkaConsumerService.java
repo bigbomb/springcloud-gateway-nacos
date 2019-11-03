@@ -14,7 +14,7 @@ import com.deng.order.config.KafkaConfig;
 
 @Component
 public class KafkaConsumerService implements InitializingBean {
-	private static final String TOPIC = "log_group";
+	private static final String TOPIC = "test_topic";
     @Autowired
     private KafkaConfig kafka_config;
 
