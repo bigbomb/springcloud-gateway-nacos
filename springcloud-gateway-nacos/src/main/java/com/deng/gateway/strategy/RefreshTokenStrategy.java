@@ -28,7 +28,7 @@ public class RefreshTokenStrategy implements TokenStrategy,InitializingBean{
 				 log.info( "refreshToken is empty ..." );
 		         result = Result.builder()
 				    		.message("refreshToken不能为空")
-				    		.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
+				    		.code(StatusCodeConstants.REFRESH_TOKEN_EXPIRE)
 				    		.body(null)
 				    		.build(); 
 			}
@@ -44,7 +44,7 @@ public class RefreshTokenStrategy implements TokenStrategy,InitializingBean{
 							newtoken = Tokens.builder().refreshToken(refreshToken).build();
 						    result = Result.builder()
 						    		.message("旧的refreshtoken失效，重新生成新的refreshtoken")
-						    		.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
+						    		.code(StatusCodeConstants.REFRESH_TOKEN_EXPIRE)
 						    		.body(newtoken)
 						    		.build();
 						} catch (Exception e) {
