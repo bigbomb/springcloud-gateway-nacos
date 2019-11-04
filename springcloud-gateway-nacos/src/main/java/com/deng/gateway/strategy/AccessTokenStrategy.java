@@ -74,7 +74,7 @@ public class AccessTokenStrategy implements TokenStrategy,InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
-		TokenFactory.registerToken("accesstoken", this);
+		TokenFactory.registerToken(SystemConstants.ACCESS_TOKEN, this);
 	}
 
 

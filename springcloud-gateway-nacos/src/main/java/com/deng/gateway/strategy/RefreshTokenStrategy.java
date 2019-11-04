@@ -9,6 +9,7 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 
 import com.deng.gateway.constants.StatusCodeConstants;
+import com.deng.gateway.constants.SystemConstants;
 import com.deng.gateway.entity.Result;
 import com.deng.gateway.entity.Tokens;
 import com.deng.gateway.utils.JwtUtil;
@@ -59,7 +60,7 @@ public class RefreshTokenStrategy implements TokenStrategy,InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
-		TokenFactory.registerToken("refreshtoken", this);
+		TokenFactory.registerToken(SystemConstants.REFRESH_TOKEN, this);
 	}
 
 
