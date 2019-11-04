@@ -15,13 +15,13 @@ public class TokenFactory {
  
     private static final TokenStrategy EMPTY = new EmptyToken();
  
-    //获取
+    //获取tokenStrategy对象
     public static TokenStrategy getTokenStrategy(String state) {
     	TokenStrategy result = tokenMap.get(state);
         return result == null ? EMPTY : result;
     }
  
-    //将处罚对象注册到这里
+    //将tokenStrategy对象注册到这里
     public static void registerToken(String state,TokenStrategy o){
     	tokenMap.put(state, o);
     }
