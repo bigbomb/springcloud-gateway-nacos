@@ -7,6 +7,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
@@ -15,6 +20,7 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
@@ -46,6 +52,10 @@ public class ElasticsearchConfig {
     public int port;
     @Value("${elasticsearch.scheme}")
     public String scheme;
+	@Value("${elasticsearch.username}")
+	public String username;
+	@Value("${elasticsearch.password}")
+	public String password;
 	 public static final String INDEX_NAME = "book-index";
 
 
@@ -59,7 +69,16 @@ public class ElasticsearchConfig {
 	        	if (highLevelClient != null) {
 	        		highLevelClient.close();
 	            }
-	        	highLevelClient = new RestHighLevelClient(RestClient.builder(new HttpHost(host, port, scheme)));
+				final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+				credentialsProvider.setCredentials(AuthScope.ANY,
+						new UsernamePasswordCredentials(username, password));
+	        	highLevelClient = new RestHighLevelClient(RestClient.builder(new HttpHost(host, port, scheme))
+						.setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+							public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
+								httpClientBuilder.disableAuthCaching();
+								return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+							}
+						}));
 	            if (this.indexExist(INDEX_NAME)) {
 	                return;
 	            }

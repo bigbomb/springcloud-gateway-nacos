@@ -18,9 +18,5 @@ public class Result<T> {
   
     //响应实体  
     private T body;  
-  
-    public Result(int code, String message) {  
-        this.code = code;  
-        this.message = message;  
-    }  
+
 }  
