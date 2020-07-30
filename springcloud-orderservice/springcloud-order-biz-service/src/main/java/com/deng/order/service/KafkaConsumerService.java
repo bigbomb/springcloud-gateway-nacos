@@ -1,5 +1,6 @@
 package com.deng.order.service;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -40,7 +41,7 @@ public class KafkaConsumerService implements InitializingBean {
             try {
                 while (true) {
                     ConsumerRecords<String, String> records =
-                            kafkaConsumer.poll(100L);
+                            kafkaConsumer.poll(Duration.ofMillis(1000));
                     for (ConsumerRecord<String, String> record : records) {
                         System.out.println("message------------ "+record.value());
                     }

@@ -1,5 +1,7 @@
 package com.deng.gateway.route.rule;
 
+import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
+import com.alibaba.cloud.nacos.ribbon.NacosServer;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.netflix.client.config.IClientConfig;
@@ -8,8 +10,7 @@ import com.netflix.loadbalancer.DynamicServerListLoadBalancer;
 import com.netflix.loadbalancer.Server;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.alibaba.nacos.NacosDiscoveryProperties;
-import org.springframework.cloud.alibaba.nacos.ribbon.NacosServer;
+
 
 @Slf4j
 public class NacosWeightRandomRule extends AbstractLoadBalancerRule {
