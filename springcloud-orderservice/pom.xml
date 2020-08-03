@@ -14,7 +14,12 @@
         <artifactId>springcloud-service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
+	<properties>
+<!--		<dubbo.version>2.7.7</dubbo.version>-->
+<!--		<dubbo-registry-nacos.version>2.7.7</dubbo-registry-nacos.version>-->
+		<alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
+		<springboot.version>2.3.2.RELEASE</springboot.version>
+	</properties>
 	<dependencyManagement>
         <dependencies>
 
@@ -26,9 +31,14 @@
 	
 			<dependency>
 	           <groupId>com.dev.project</groupId>
-	    	   <artifactId>springcloud-order-client</artifactId>
+	    	   <artifactId>springcloud-order-client-dubbo</artifactId>
 	    	   <version>0.0.1-SNAPSHOT</version>
 	        </dependency>
+			<dependency>
+				<groupId>com.dev.project</groupId>
+				<artifactId>springcloud-order-client-feign</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 	        <dependency>
 	           <groupId>com.dev.project</groupId>
 	    	   <artifactId>springcloud-order-common</artifactId>
@@ -46,12 +56,12 @@
 	        </dependency>
 	        <dependency>
 	           <groupId>com.dev.project</groupId>
-	    	   <artifactId>springcloud-order-web</artifactId>
+	    	   <artifactId>springcloud-order-consumer-web</artifactId>
 	    	   <version>0.0.1-SNAPSHOT</version>
 	        </dependency>
            <dependency>
 	           <groupId>com.dev.project</groupId>
-	    	   <artifactId>springcloud-order-web2</artifactId>
+	    	   <artifactId>springcloud-order-provider-web</artifactId>
 	    	   <version>0.0.1-SNAPSHOT</version>
 	        </dependency>
 	        <dependency>
@@ -65,11 +75,6 @@
                 <artifactId>elasticsearch</artifactId>
                 <version>7.8.0</version>
             </dependency>
-            <dependency>
-	            <groupId>org.springframework.boot</groupId>
-	            <artifactId>spring-boot-starter-data-redis</artifactId>
-	            <version>2.3.2.RELEASE</version>
-	        </dependency>
             <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-client &ndash;&gt;-->
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
@@ -118,11 +123,6 @@
 			    <version>2.7.0</version>
 			</dependency>
 			<dependency>
-			    <groupId>org.springframework.boot</groupId>
-			    <artifactId>spring-boot-starter-webflux</artifactId>
-			    <version>2.3.2.RELEASE</version>
-			</dependency>
-			<dependency>
 	           <groupId>com.alibaba</groupId>
 	           <artifactId>fastjson</artifactId>
 	           <version>1.2.56</version>
@@ -132,19 +132,54 @@
 	           <artifactId>jackson-databind</artifactId>
 	           <version>2.11.1</version>
 	       </dependency>
-
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-dubbo</artifactId>
+				<version>${alibaba.cloud.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-redis</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-webflux</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+<!--			<dependency>-->
+<!--				<groupId>com.alibaba</groupId>-->
+<!--				<artifactId>dubbo-registry-nacos</artifactId>-->
+<!--				<version>${dubbo-registry-nacos.version}</version>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>org.apache.dubbo</groupId>-->
+<!--				<artifactId>dubbo</artifactId>-->
+<!--				<version>${dubbo.version}</version>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>com.alibaba.spring</groupId>-->
+<!--				<artifactId>spring-context-support</artifactId>-->
+<!--				<version>${alibaba.spring.version}</version>-->
+<!--			</dependency>-->
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>springcloud-order-web</module>
         <module>springcloud-order-biz-service</module>
-        <module>springcloud-order-client</module>
+        <module>springcloud-order-client-feign</module>
+		<module>springcloud-order-client-dubbo</module>
         <module>springcloud-order-common</module>
         <module>springcloud-order-dao</module>
         <module>springcloud-order-integration</module>
-        <module>springcloud-order-start</module>
-        <module>springcloud-order-start2</module>
-        <module>springcloud-order-web2</module>
+		<module>springcloud-order-consumer-start</module>
+        <module>springcloud-order-consumer-web</module>
+        <module>springcloud-order-provider-start</module>
+        <module>springcloud-order-provider-web</module>
     </modules>
 </project>

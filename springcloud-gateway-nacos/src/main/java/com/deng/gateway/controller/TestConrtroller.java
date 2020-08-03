@@ -1,26 +1,21 @@
 package com.deng.gateway.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.deng.gateway.entity.Result;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+
 
 import com.deng.gateway.constants.StatusCodeConstants;
-import com.deng.gateway.entity.Result;
 import com.deng.gateway.entity.Tokens;
 import com.deng.gateway.utils.JwtUtil;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class TestConrtroller {
 
-    @Autowired
-    private RestTemplate restTemplate;
 
-    @GetMapping("test")
-    public String test() {
-        return restTemplate.getForObject("http://order-service-dev/test", String.class);
-    }
-    
+
     @GetMapping("getToken")
     public Result getToken() {
     	String accessToken = null;
