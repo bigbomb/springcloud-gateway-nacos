@@ -1,6 +1,7 @@
 package com.deng.order.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,14 @@ public class SysUserController {
 	@GetMapping("list")
     @SystemLog(description = "查询用户列表", type = LogTypeEnum.OPERATION)
     public Result<Object> test2(){
-    	List<SysUser> userlist = sysUserService.list();
+//    	List<SysUser> userlist = sysUserService.list();
+		List<SysUser> userlist = new ArrayList<SysUser>();
+		SysUser sysUser = SysUser.builder()
+				.username("1")
+				.password("123456")
+				.nickname("test")
+				.build();
+		userlist.add(sysUser);
     	Result<Object> result = null;
 		try {
 			result = Result.builder()

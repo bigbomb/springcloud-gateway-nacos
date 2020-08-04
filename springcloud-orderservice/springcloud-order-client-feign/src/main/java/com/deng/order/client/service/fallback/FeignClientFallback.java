@@ -1,7 +1,7 @@
 package com.deng.order.client.service.fallback;
 
 import com.deng.order.client.service.constant.SystemConstant;
-import com.deng.order.client.service.entity.feign.Result;
+import com.deng.order.client.service.entity.feign.FeignResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,8 +24,8 @@ public class FeignClientFallback implements FallbackFactory<Feignclient> {
         }
         return new Feignclient() {
             @Override
-            public Result<Object> getTest(){
-                return Result.builder().code(SystemConstant.RESULT_CODE_FAILURE).message(SystemConstant.RESULT_SERVICE_FAILURE).build();
+            public FeignResult<Object> getTest(){
+                return FeignResult.builder().code(SystemConstant.RESULT_CODE_FAILURE).message(SystemConstant.RESULT_SERVICE_FAILURE).build();
             }
         };
     }

@@ -1,7 +1,7 @@
 package com.deng.order.client.service.dubbo;
 
-import com.deng.order.client.service.entity.dubbo.Result;
+import com.deng.order.client.service.entity.dubbo.DubboResult;
 
 public interface DubboService {
-    public Result<Object> getTest();
+    public DubboResult<Object> getTest();
 }

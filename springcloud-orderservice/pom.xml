@@ -19,6 +19,7 @@
 <!--		<dubbo-registry-nacos.version>2.7.7</dubbo-registry-nacos.version>-->
 		<alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
 		<springboot.version>2.3.2.RELEASE</springboot.version>
+		<feign.version>11.0</feign.version>
 	</properties>
 	<dependencyManagement>
         <dependencies>
@@ -152,7 +153,40 @@
 				<artifactId>spring-boot-starter-webflux</artifactId>
 				<version>${springboot.version}</version>
 			</dependency>
-<!--			<dependency>-->
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-core</artifactId>
+				<version>${feign.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-jaxrs</artifactId>
+				<version>${feign.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-hystrix</artifactId>
+				<version>${feign.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-slf4j</artifactId>
+				<version>${feign.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-httpclient</artifactId>
+				<version>${feign.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-openfeign-core -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-openfeign-core</artifactId>
+				<version>2.2.4.RELEASE</version>
+			</dependency>
+
+			<!--			<dependency>-->
 <!--				<groupId>com.alibaba</groupId>-->
 <!--				<artifactId>dubbo-registry-nacos</artifactId>-->
 <!--				<version>${dubbo-registry-nacos.version}</version>-->

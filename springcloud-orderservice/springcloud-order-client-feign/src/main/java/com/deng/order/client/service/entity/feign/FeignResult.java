@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor  
 @AllArgsConstructor  
-public class Result<T> {  
+public class FeignResult<T> {
     //0 成功，非0 失败  
     private int code;  
   

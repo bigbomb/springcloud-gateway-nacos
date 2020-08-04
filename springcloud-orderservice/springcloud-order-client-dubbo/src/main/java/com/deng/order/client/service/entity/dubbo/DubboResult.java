@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor  
 @AllArgsConstructor  
-public class Result<T> implements Serializable {
+public class DubboResult<T> implements Serializable {
     //0 成功，非0 失败  
     private int code;  
   
