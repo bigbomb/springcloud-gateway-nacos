@@ -16,7 +16,7 @@ public class SystemConstant {
 	/**
 	 * 返回结果失败之服务无法连接
 	 */
-	public static final String RESULT_SERVICE_FAILURE= "接口暂时不可用";
+	public static final String RESULT_SERVICE_FAILURE= "您的请求被限流了";
 	
 	
 	/**

@@ -2,6 +2,7 @@ package com.deng.order.common.exception;
 
 import java.io.IOException;
 
+import org.apache.dubbo.rpc.RpcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -37,6 +38,14 @@ public class GlobalExceptionHandler {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", "300005");
         jsonObject.put("message", "系统异常");
+        return jsonObject;
+    }
+    @ExceptionHandler(value = RpcException.class)
+    public JSONObject FlowExceptionHandler(Exception e){
+        logger.error(e.toString());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", "500");
+        jsonObject.put("message", "您的请求被限流了");
         return jsonObject;
     }
 }

@@ -21,6 +21,7 @@
         <feignclient.version>2.2.4.RELEASE</feignclient.version>
         <alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
         <sentinel.nacos.version>1.7.2</sentinel.nacos.version>
+        <sentinel.dubbo.version>1.7.2</sentinel.dubbo.version>
     </properties>
 	
 	<parent>
@@ -81,6 +82,22 @@
                 <groupId>com.alibaba.csp</groupId>
                 <artifactId>sentinel-datasource-nacos</artifactId>
                 <version>${sentinel.nacos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-apache-dubbo-adapter</artifactId>
+                <version>${sentinel.dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-core</artifactId>
+                <version>${sentinel.dubbo.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-transport-simple-http</artifactId>
+                <version>${sentinel.dubbo.version}</version>
             </dependency>
 			 <dependency>
                 <groupId>org.springframework.cloud</groupId>
