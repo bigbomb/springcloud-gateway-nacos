@@ -19,9 +19,8 @@
         <java.version>1.8</java.version>
         <jwt.version>0.9.1</jwt.version>
         <feignclient.version>2.2.4.RELEASE</feignclient.version>
-<!--        <dubbo.version>2.7.7    </dubbo.version>-->
-<!--        <dubbo-registry-nacos.version>2.7.7</dubbo-registry-nacos.version>-->
         <alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
+        <sentinel.nacos.version>1.7.2</sentinel.nacos.version>
     </properties>
 	
 	<parent>
@@ -63,10 +62,26 @@
                 <version>${spring-nacos.config.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <version>${alibaba.cloud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+                <version>${alibaba.cloud.version}</version>
+            </dependency>
+            <dependency>
 			    <groupId>com.alibaba.nacos</groupId>
 			    <artifactId>nacos-client</artifactId>
 			    <version>${nacos.client.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-datasource-nacos</artifactId>
+                <version>${sentinel.nacos.version}</version>
+            </dependency>
 			 <dependency>
                 <groupId>org.springframework.cloud</groupId>
            		<artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -77,26 +92,7 @@
 			    <artifactId>jjwt</artifactId>
 			    <version>${jwt.version}</version>
 			</dependency>
-<!--            <dependency>-->
-<!--                <groupId>com.alibaba.cloud</groupId>-->
-<!--                <artifactId>spring-cloud-starter-dubbo</artifactId>-->
-<!--                <version>${alibaba.cloud.version}</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.alibaba</groupId>-->
-<!--                <artifactId>dubbo-registry-nacos</artifactId>-->
-<!--                <version>${dubbo-registry-nacos.version}</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.alibaba</groupId>-->
-<!--                <artifactId>dubbo</artifactId>-->
-<!--                <version>${dubbo.version}</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.alibaba.spring</groupId>-->
-<!--                <artifactId>spring-context-support</artifactId>-->
-<!--                <version>${alibaba.spring.version}</version>-->
-<!--            </dependency>-->
+
         </dependencies>
     </dependencyManagement>
 	
