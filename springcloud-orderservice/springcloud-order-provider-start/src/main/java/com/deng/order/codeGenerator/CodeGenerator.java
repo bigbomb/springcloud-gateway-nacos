@@ -34,11 +34,11 @@ public class CodeGenerator {
         AutoGenerator mpg = new AutoGenerator();
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.25.98:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC&rewriteBatchedStatements=true");
+        dsc.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC&rewriteBatchedStatements=true");
         // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         // dsc.setDriverName("com.mysql.jdbc.Driver"); //mysql5.6以下的驱动
-        dsc.setUsername("root");
+        dsc.setUsername("test");
         dsc.setPassword("123456");
         mpg.setDataSource(dsc);
 
@@ -46,9 +46,9 @@ public class CodeGenerator {
         GlobalConfig gc = new GlobalConfig();
         String parentPath = System.getProperty("user.dir");
         File dir = new File(parentPath);
-        String projectPath =dir.getParent();
+        String projectPath =dir.getParent()+"/springcloud-gateway-nacos-master/springcloud-orderservice";
         System.out.println(projectPath);
-//        gc.setOutputDir(projectPath + "/src/main/java");
+        gc.setOutputDir(projectPath);
         gc.setAuthor("bigbomb");//作者名称
         gc.setOpen(false);
 
@@ -113,7 +113,7 @@ public class CodeGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 + pc.getModuleName()
-                String expand = projectPath + "/springcloud-order-web/src/main/java/com/deng/order/" + "controller";
+                String expand = projectPath + "/springcloud-order-provider-web/src/main/java/com/deng/order/" + "controller";
                 String entityFile = String.format((expand + File.separator + "%s" + ".java"), tableInfo.getControllerName());
                 return entityFile;
             }
@@ -207,10 +207,10 @@ public class CodeGenerator {
         // 写于父类中的公共字段
         //strategy.setSuperEntityColumns("id");
         //表名
-        strategy.setInclude("sys_user");
+        strategy.setInclude("user");
         strategy.setControllerMappingHyphenStyle(true);
         //根据你的表名来建对应的类名，如果你的表名没有什么下划线，比如test，那么你就可以取消这一步
-        strategy.setTablePrefix("t_");
+//        strategy.setTablePrefix("t_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();

@@ -4,6 +4,8 @@ package com.deng.order.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.deng.order.common.entity.User;
+import com.deng.order.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deng.order.common.annotations.SystemLog;
 import com.deng.order.common.constant.SystemConstant;
 import com.deng.order.common.entity.Result;
-import com.deng.order.common.entity.SysUser;
 import com.deng.order.common.enums.LogTypeEnum;
-import com.deng.order.service.SysUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/sys-user")
 public class SysUserController {
 	@Autowired
-	private SysUserService sysUserService;
+	private UserService userService;
 	
     
     @Autowired
@@ -44,20 +44,17 @@ public class SysUserController {
 	@GetMapping("list")
     @SystemLog(description = "查询用户列表", type = LogTypeEnum.OPERATION)
     public Result<Object> test2(){
-//    	List<SysUser> userlist = sysUserService.list();
-		List<SysUser> userlist = new ArrayList<SysUser>();
-		SysUser sysUser = SysUser.builder()
-				.username("1")
-				.password("123456")
+		User sysUser = User.builder()
 				.nickname("test")
+				.age("18")
 				.build();
-		userlist.add(sysUser);
+		userService.save(sysUser);
     	Result<Object> result = null;
 		try {
 			result = Result.builder()
 					.code(SystemConstant.RESULT_CODE_SUCCESS)
 					.message(SystemConstant.RESULT_SERVICE_SUCCESS)
-					.body(objectMapper.writeValueAsString(userlist))
+					.body(objectMapper.writeValueAsString(sysUser))
 					.build();
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block

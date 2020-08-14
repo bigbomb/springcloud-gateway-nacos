@@ -4,6 +4,7 @@ import com.deng.order.client.service.Feignclient;
 import com.deng.order.client.service.dubbo.DubboService;
 import com.deng.order.client.service.entity.dubbo.DubboResult;
 import com.deng.order.client.service.entity.feign.FeignResult;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ public class TestController {
     @Autowired
     private Feignclient feignclient;
 
-    @Reference(check=false)
+    @Reference(check=false,retries=0)
     private DubboService dubboService;
 
     /**
@@ -29,9 +30,11 @@ public class TestController {
      * @return
      */
     @GetMapping("feignget")
-    public FeignResult<Object> feignget(){
+    @GlobalTransactional(name = "order-service-consumer")
+    public FeignResult<Object> feignget() throws Exception {
         FeignResult<Object> result = feignclient.getTest();
-        return result;
+        dubboService.getTest();
+        throw new Exception();
     }
 
     //    @Autowired

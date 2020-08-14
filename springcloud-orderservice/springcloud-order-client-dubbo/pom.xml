@@ -19,10 +19,14 @@
 <!--            <groupId>org.springframework.cloud</groupId>-->
 <!--      		<artifactId>spring-cloud-starter-feign</artifactId>-->
 <!--        </dependency>-->
-<!--        <dependency>-->
-<!--           <groupId>com.dev.project</groupId>-->
-<!--    	   <artifactId>springcloud-order-common</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+           <groupId>com.dev.project</groupId>
+    	   <artifactId>springcloud-order-dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dev.project</groupId>
+            <artifactId>springcloud-order-common</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

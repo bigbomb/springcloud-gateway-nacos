@@ -28,6 +28,10 @@
            <groupId>com.dev.project</groupId>
     	   <artifactId>springcloud-order-dao</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+        </dependency>
     </dependencies>
 
    <distributionManagement>

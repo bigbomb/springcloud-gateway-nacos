@@ -20,6 +20,7 @@
 		<alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
 		<springboot.version>2.3.2.RELEASE</springboot.version>
 		<feign.version>11.0</feign.version>
+		<cloud.openfeign.version>2.2.4.RELEASE</cloud.openfeign.version>
 	</properties>
 	<dependencyManagement>
         <dependencies>
@@ -183,7 +184,12 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-openfeign-core</artifactId>
-				<version>2.2.4.RELEASE</version>
+				<version>${cloud.openfeign.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+				<version>${alibaba.cloud.version}</version>
 			</dependency>
 
 			<!--			<dependency>-->
