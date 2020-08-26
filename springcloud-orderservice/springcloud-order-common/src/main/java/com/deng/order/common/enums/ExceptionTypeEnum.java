@@ -9,7 +9,14 @@ package com.deng.order.common.enums;
 
 */
 public enum ExceptionTypeEnum {
+    /**
+     * 成功的code
+     */
     SUCCESS("00", "success", 0),
+
+    /**
+     * 失败的code
+     */
     DATA_ERROR("400003", "数据错误", 2);
 
     private String code;

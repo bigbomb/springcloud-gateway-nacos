@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = BusinessException.class)
-    public JSONObject BusinessExceptionHandler(BusinessException exception) throws IOException {
+    public JSONObject businessExceptionHandler(BusinessException exception) throws IOException {
         logger.info(exception.toString());
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", exception.getCode());
@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = Exception.class)
-    public JSONObject OtherExceptionHandler(Exception e) throws IOException {
+    public JSONObject otherExceptionHandler(Exception e) throws IOException {
         logger.error(e.toString());
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", "300005");
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
         return jsonObject;
     }
     @ExceptionHandler(value = RpcException.class)
-    public JSONObject FlowExceptionHandler(Exception e){
+    public JSONObject flowExceptionHandler(Exception e){
         logger.error(e.toString());
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", "500");

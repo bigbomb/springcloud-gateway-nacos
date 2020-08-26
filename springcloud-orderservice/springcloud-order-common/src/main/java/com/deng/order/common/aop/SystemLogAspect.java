@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 @Component
 public class SystemLogAspect {
-	private static final ThreadLocal<Date> beginTimeThreadLocal = new NamedThreadLocal<Date>("ThreadLocal beginTime");
+	private static final ThreadLocal<Date> BEGINTIME_THREADLOCAL = new NamedThreadLocal<Date>("ThreadLocal beginTime");
 
 	 private static Logger logger = LoggerFactory.getLogger(SystemLogAspect.class);
 
@@ -65,7 +65,7 @@ public class SystemLogAspect {
 
         //线程绑定变量（该数据只有当前请求的线程可见）
         Date beginTime = new Date();
-        beginTimeThreadLocal.set(beginTime);
+        BEGINTIME_THREADLOCAL.set(beginTime);
     }
 
 
@@ -115,13 +115,13 @@ public class SystemLogAspect {
 
             //.......
             //请求开始时间
-            long beginTime = beginTimeThreadLocal.get().getTime();
+            long beginTime = BEGINTIME_THREADLOCAL.get().getTime();
             long endTime = System.currentTimeMillis();
             //请求耗时
             Long logElapsedTime = endTime - beginTime;
             log.setCostTime(logElapsedTime.intValue());
             logger.info("日志测试为："+log.toString());
-            
+            BEGINTIME_THREADLOCAL.remove();
             //持久化(存储到数据或者ES，可以考虑用线程池)
             //logService.insert(log);
 //            ThreadPoolUtil.getPool().execute(new SaveSystemLogThread(log, logService));

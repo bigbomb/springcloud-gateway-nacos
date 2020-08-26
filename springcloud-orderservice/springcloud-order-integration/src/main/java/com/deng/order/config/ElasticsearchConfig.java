@@ -74,6 +74,7 @@ public class ElasticsearchConfig {
 						new UsernamePasswordCredentials(username, password));
 	        	highLevelClient = new RestHighLevelClient(RestClient.builder(new HttpHost(host, port, scheme))
 						.setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+							@Override
 							public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
 								httpClientBuilder.disableAuthCaching();
 								return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);

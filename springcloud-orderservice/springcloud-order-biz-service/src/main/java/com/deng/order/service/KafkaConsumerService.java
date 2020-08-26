@@ -17,14 +17,14 @@ import com.deng.order.config.KafkaConfig;
 public class KafkaConsumerService implements InitializingBean {
 	private static final String TOPIC = "test_topic";
     @Autowired
-    private KafkaConfig kafka_config;
+    private KafkaConfig kafkaConfig;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         //每个线程一个KafkaConsumer实例，且线程数设置成分区数，最大化提高消费能力
         int consumerThreadNum = 2;//线程数设置成分区数，最大化提高消费能力
         for (int i = 0; i < consumerThreadNum; i++) {
-            new KafkaConsumerThread(kafka_config.customerConfigs(), TOPIC).start();
+            new KafkaConsumerThread(kafkaConfig.customerConfigs(), TOPIC).start();
         }
     }
 
