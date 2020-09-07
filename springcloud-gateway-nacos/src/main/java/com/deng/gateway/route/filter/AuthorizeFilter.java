@@ -53,8 +53,8 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
     	if(!isNotCheck(url))
     	{
     		ServerHttpResponse response = exchange.getResponse();
-    		 String accesstoken = exchange.getRequest().getQueryParams().getFirst(SystemConstants.ACCESS_TOKEN);
-    		 String refreshtoken = exchange.getRequest().getQueryParams().getFirst(SystemConstants.REFRESH_TOKEN);
+    		 String accesstoken = exchange.getRequest().getHeaders().getFirst(SystemConstants.ACCESS_TOKEN);
+    		 String refreshtoken = exchange.getRequest().getHeaders().getFirst(SystemConstants.REFRESH_TOKEN);
     		 //获取refreshtoken策略
     		 TokenStrategy refresstokenStrategy = TokenFactory.getTokenStrategy(SystemConstants.REFRESH_TOKEN);
     		 result = refresstokenStrategy.checkisBlank(refreshtoken,response);
