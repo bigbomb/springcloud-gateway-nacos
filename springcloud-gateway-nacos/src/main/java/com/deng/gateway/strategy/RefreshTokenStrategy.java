@@ -1,27 +1,29 @@
 package com.deng.gateway.strategy;
 
 
+import com.deng.gateway.entity.JWTDefinition;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.deng.gateway.constants.StatusCodeConstants;
 import com.deng.gateway.constants.SystemConstants;
 import com.deng.gateway.entity.Result;
 import com.deng.gateway.entity.Tokens;
-import com.deng.gateway.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 
 @Component
 public class RefreshTokenStrategy implements TokenStrategy,InitializingBean{
 	 private static final Logger log = LoggerFactory.getLogger( RefreshTokenStrategy.class );
+	@Autowired
+	private JWTDefinition jwtDefinition ;
 	 @Override
-		public Result checkisBlank(String token, ServerHttpResponse response) {
+		public Result checkisBlank(String token, String username) {
 			Result result = null;
-			Tokens newtoken ;
+			Tokens newtoken;
 			if(StringUtils.isBlank(token))
 			{
 				// TODO Auto-generated method stub
@@ -33,17 +35,19 @@ public class RefreshTokenStrategy implements TokenStrategy,InitializingBean{
 				    		.build(); 
 			}
 			 else {
-	        	 Claims accessclaims = JwtUtil.getClaimByToken(token);
-	        	 boolean b = accessclaims==null || accessclaims.isEmpty() || JwtUtil.isTokenExpired(accessclaims.getExpiration());
+				Claims accessclaims = jwtDefinition.getClaimByToken(token);
+	        	 boolean b = accessclaims==null || accessclaims.isEmpty() || jwtDefinition.isTokenExpired(accessclaims.getExpiration());
 	        	 if (b)
 	        	 {
-	        		 log.info( "refreshtoken is Expired ..." );
+	        	 	log.info( "accesstoken,refreshtoken is reset ..." );
          		    String refreshToken = null;
+         		    String accessToken = null;
 						try {
-							refreshToken = JwtUtil.createJWT("system", "system", "refreshToken", 1296000*1000);
-							newtoken = Tokens.builder().refreshToken(refreshToken).build();
+							refreshToken = jwtDefinition.generateRefreshToken(username);
+							accessToken = jwtDefinition.generateAccessToken(username);
+							newtoken = Tokens.builder().refreshToken(refreshToken).accessToken(accessToken).build();
 						    result = Result.builder()
-						    		.message("旧的refreshtoken失效，重新生成新的refreshtoken")
+						    		.message("refreshtoken,accesstoken重新生成")
 						    		.code(StatusCodeConstants.REFRESH_TOKEN_EXPIRE)
 						    		.body(newtoken)
 						    		.build();
@@ -52,6 +56,7 @@ public class RefreshTokenStrategy implements TokenStrategy,InitializingBean{
 							e.printStackTrace();
 						}
 	        	 }
+
 			 }
 			return result;
 

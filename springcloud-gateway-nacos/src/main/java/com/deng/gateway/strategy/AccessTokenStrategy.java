@@ -1,28 +1,29 @@
 package com.deng.gateway.strategy;
 
 
+import com.deng.gateway.entity.JWTDefinition;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.deng.gateway.constants.StatusCodeConstants;
 import com.deng.gateway.constants.SystemConstants;
 import com.deng.gateway.entity.Result;
 import com.deng.gateway.entity.Tokens;
-import com.deng.gateway.utils.JwtUtil;
 
 import io.jsonwebtoken.Claims;
 
 @Component
 public class AccessTokenStrategy implements TokenStrategy,InitializingBean{
 	 private static final Logger log = LoggerFactory.getLogger( AccessTokenStrategy.class );
+	 @Autowired
+	 private JWTDefinition jwtDefinition ;
 	@Override
-	public Result checkisBlank(String token, ServerHttpResponse response) {
+	public Result checkisBlank(String token, String username) {
 		Result result = null;
-		Tokens newtoken ;
 		if(StringUtils.isBlank(token))
 		{
 			// TODO Auto-generated method stub
@@ -34,14 +35,14 @@ public class AccessTokenStrategy implements TokenStrategy,InitializingBean{
 			    		.build(); 
 		}
 		 else {
-        	 Claims accessclaims = JwtUtil.getClaimByToken(token);
-        	 boolean b = accessclaims==null || accessclaims.isEmpty() || JwtUtil.isTokenExpired(accessclaims.getExpiration());
+        	 Claims accessclaims = jwtDefinition.getClaimByToken(token);
+        	 boolean b = accessclaims==null || accessclaims.isEmpty() || jwtDefinition.isTokenExpired(accessclaims.getExpiration());
         	 if(b)
         	 {
         		 try {
          			log.info( "accesstoken is Expired ..." );
-						String accessToken = JwtUtil.createJWT("bigbomb", "bigbomb", "account", 60*1000);
-					    newtoken = Tokens.builder()
+						String accessToken = jwtDefinition.generateAccessToken(username);
+					    Tokens newtoken  = Tokens.builder()
 					    		.accessToken(accessToken)
 					    		.build();
 						result = Result.builder()

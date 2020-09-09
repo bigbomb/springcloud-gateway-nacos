@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deng.gateway.constants.StatusCodeConstants;
 import com.deng.gateway.entity.Tokens;
-import com.deng.gateway.utils.JwtUtil;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class TestConrtroller {
@@ -23,8 +21,8 @@ public class TestConrtroller {
     	Result<?> result = null;
     	Tokens tokens = null;
     	try {
-			accessToken = JwtUtil.createJWT("bigbomb", "bigbomb", "account", 60*1000);
-			refreshToken = JwtUtil.createJWT("system", "system", "refreshToken", 1296000*1000);
+//			accessToken = JwtUtil.createJWT("bigbomb", "bigbomb", "account", 60*1000);
+//			refreshToken = JwtUtil.createJWT("system", "system", "refreshToken", 1296000*1000);
 		    tokens = Tokens.builder().accessToken(accessToken).refreshToken(refreshToken).build();
 			result = Result.builder().code(StatusCodeConstants.STATUS_SUCCESS).body(tokens).build();
 		} catch (Exception e) {

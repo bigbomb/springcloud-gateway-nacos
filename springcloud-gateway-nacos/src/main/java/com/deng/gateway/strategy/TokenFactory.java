@@ -3,8 +3,6 @@ package com.deng.gateway.strategy;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.http.server.reactive.ServerHttpResponse;
-
 import com.deng.gateway.entity.Result;
 
 
@@ -29,7 +27,7 @@ public class TokenFactory {
     private static class EmptyToken implements TokenStrategy {
         
 		@Override
-		public Result checkisBlank(String token,ServerHttpResponse response) {
+		public Result checkisBlank(String token, String username) {
 			// TODO Auto-generated method stub
 			return null;
 		}

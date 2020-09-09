@@ -2,7 +2,6 @@ package com.deng.gateway.route.filter;
 
 import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,17 +16,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.deng.gateway.constants.StatusCodeConstants;
 import com.deng.gateway.constants.SystemConstants;
 import com.deng.gateway.entity.Result;
-import com.deng.gateway.entity.Tokens;
-import com.deng.gateway.strategy.AccessTokenStrategy;
-import com.deng.gateway.strategy.RefreshTokenStrategy;
 import com.deng.gateway.strategy.TokenFactory;
 import com.deng.gateway.strategy.TokenStrategy;
-import com.deng.gateway.utils.JwtUtil;
-import io.jsonwebtoken.Claims;
 import reactor.core.publisher.Mono;
 
 /**
@@ -55,9 +47,10 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
     		ServerHttpResponse response = exchange.getResponse();
     		 String accesstoken = exchange.getRequest().getHeaders().getFirst(SystemConstants.ACCESS_TOKEN);
     		 String refreshtoken = exchange.getRequest().getHeaders().getFirst(SystemConstants.REFRESH_TOKEN);
+    		 String username = exchange.getRequest().getQueryParams().getFirst(SystemConstants.USER_NAME);
     		 //获取refreshtoken策略
     		 TokenStrategy refresstokenStrategy = TokenFactory.getTokenStrategy(SystemConstants.REFRESH_TOKEN);
-    		 result = refresstokenStrategy.checkisBlank(refreshtoken,response);
+    		 result = refresstokenStrategy.checkisBlank(refreshtoken,username);
     		 if(result!=null) {
     			 byte[] bits = JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8);
                  DataBuffer buffer = response.bufferFactory().wrap(bits);
@@ -67,7 +60,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
     		 }
     		//获取accesstoken策略
     		 TokenStrategy accesstokenStrategy = TokenFactory.getTokenStrategy(SystemConstants.ACCESS_TOKEN);
-    		 result = accesstokenStrategy.checkisBlank(accesstoken,response);
+    		 result = accesstokenStrategy.checkisBlank(accesstoken,username);
     		 if(result != null)
     		 {
     			 byte[] bits = JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8);
