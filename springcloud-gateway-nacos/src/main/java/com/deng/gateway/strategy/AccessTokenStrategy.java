@@ -30,7 +30,7 @@ public class AccessTokenStrategy implements TokenStrategy,InitializingBean{
 			 log.info( "accessToken is empty ..." );
 	         result = Result.builder()
 			    		.message("accessToken不能为空")
-			    		.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
+			    		.code(StatusCodeConstants.ACCESS_TOKEN_EMPTY)
 			    		.body(null)
 			    		.build(); 
 		}
@@ -61,7 +61,7 @@ public class AccessTokenStrategy implements TokenStrategy,InitializingBean{
         		 log.info( "accesstoken is not refreshtoken ..." );
     	            result = Result.builder()
 				    		.message("accesstoken不能是refreshtoken")
-				    		.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
+				    		.code(StatusCodeConstants.TOKEN_WRONG)
 				    		.body(null)
 				    		.build();
     			 }

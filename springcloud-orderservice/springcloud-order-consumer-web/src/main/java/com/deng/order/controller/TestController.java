@@ -34,17 +34,23 @@ public class TestController {
     @GetMapping("feignget")
     @GlobalTransactional(name = "order-service-consumer")
     public FeignResult<Object> feignget() {
-        FeignResult<Object> result = feignclient.getTest();
-        dubboService.getTest();
-        throw new RuntimeException();
-//        return result;
+        FeignResult<Object> result = new FeignResult<Object>();
+        try{
+            result = feignclient.getTest();
+            dubboService.getTest();
+        }catch(Exception e)
+        {
+            throw new RuntimeException();
+        }
+
+        return result;
     }
 
     //    @Autowired
 //    private RestTemplate restTemplate;
 
 
-    @GetMapping("dubbotest")
+@GetMapping("dubbotest")
     public DubboResult<Object> dubbotest() {
 
         return dubboService.getTest();

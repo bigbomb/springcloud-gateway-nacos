@@ -30,7 +30,7 @@ public class RefreshTokenStrategy implements TokenStrategy,InitializingBean{
 				 log.info( "refreshToken is empty ..." );
 		         result = Result.builder()
 				    		.message("refreshToken不能为空")
-				    		.code(StatusCodeConstants.REFRESH_TOKEN_EXPIRE)
+				    		.code(StatusCodeConstants.REFRESH_TOKEN_EMPTY)
 				    		.body(null)
 				    		.build(); 
 			}
