@@ -2,6 +2,8 @@ package com.deng.gateway.strategy;
 
 
 import com.deng.gateway.entity.JWTDefinition;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.SignatureException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,39 +37,46 @@ public class AccessTokenStrategy implements TokenStrategy,InitializingBean{
 			    		.build(); 
 		}
 		 else {
-        	 Claims accessclaims = jwtDefinition.getClaimByToken(token);
-        	 boolean b = accessclaims==null || accessclaims.isEmpty() || jwtDefinition.isTokenExpired(accessclaims.getExpiration());
-        	 if(b)
-        	 {
-        		 try {
-         			log.info( "accesstoken is Expired ..." );
-						String accessToken = jwtDefinition.generateAccessToken(username);
-					    Tokens newtoken  = Tokens.builder()
-					    		.accessToken(accessToken)
-					    		.build();
+				Claims accessclaims = null;
+				try {
+					accessclaims = jwtDefinition.getClaimByToken(token);
+                    if (SystemConstants.REFRESH_TOKEN.equals(accessclaims.getSubject())) {
+						log.info("accesstoken不能用refreshtoken ...");
 						result = Result.builder()
-								.message("旧的accesstoken失效，重新生成新的accesstoken")
-								.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
-								.body(newtoken)
+								.message("")
+								.code(StatusCodeConstants.TOKEN_WRONG)
+								.body(null)
 								.build();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 
-        	 }else {
-        		 if(SystemConstants.REFRESH_TOKEN.equals(accessclaims.getSubject()))
-    			 {
-        		 log.info( "accesstoken is not refreshtoken ..." );
-    	            result = Result.builder()
-				    		.message("accesstoken不能是refreshtoken")
-				    		.code(StatusCodeConstants.TOKEN_WRONG)
-				    		.body(null)
-				    		.build();
-    			 }
-        	 }
-        	
-		 }
+					}
+				} catch (SignatureException e) {
+
+					// TODO Auto-generated catch block
+					log.info("accesstoken格式有误 ...");
+					result = Result.builder()
+							.message("accesstoken格式有误...")
+							.code(StatusCodeConstants.UNFORMAT_ACCESS_TOKEN)
+							.body(null)
+							.build();
+					e.printStackTrace();
+				}catch (ExpiredJwtException e) {
+					// TODO Auto-generated catch block
+					log.info("旧的accesstoken过期了，重新生成新的accesstoken");
+//					String accessToken = jwtDefinition.generateAccessToken(username);
+//					Tokens newtoken = Tokens.builder()
+//							.accessToken(accessToken)
+//							.build();
+					result = Result.builder()
+							.message("accesstoken过期了")
+							.code(StatusCodeConstants.ACCESS_TOKEN_EXPIRE)
+							.body(null)
+							.build();
+					e.printStackTrace();
+				}
+
+
+
+		}
 		return result;
 
 		 

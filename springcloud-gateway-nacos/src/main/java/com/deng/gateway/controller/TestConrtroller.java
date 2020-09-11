@@ -1,7 +1,9 @@
 package com.deng.gateway.controller;
 
 
+import com.deng.gateway.entity.JWTDefinition;
 import com.deng.gateway.entity.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +14,8 @@ import com.deng.gateway.entity.Tokens;
 @RestController
 public class TestConrtroller {
 
-
+    @Autowired
+	private JWTDefinition jwtDefinition;
 
     @GetMapping("getToken")
     public Result getToken() {
@@ -21,8 +24,8 @@ public class TestConrtroller {
     	Result<?> result = null;
     	Tokens tokens = null;
     	try {
-//			accessToken = JwtUtil.createJWT("bigbomb", "bigbomb", "account", 60*1000);
-//			refreshToken = JwtUtil.createJWT("system", "system", "refreshToken", 1296000*1000);
+			accessToken = jwtDefinition.generateAccessToken("bigbomnb");
+			refreshToken = jwtDefinition.generateRefreshToken("bigbomb");
 		    tokens = Tokens.builder().accessToken(accessToken).refreshToken(refreshToken).build();
 			result = Result.builder().code(StatusCodeConstants.STATUS_SUCCESS).body(tokens).build();
 		} catch (Exception e) {

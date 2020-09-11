@@ -1,16 +1,16 @@
 package com.deng.gateway.entity;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.deng.gateway.constants.SystemConstants;
+import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 @RefreshScope
@@ -42,7 +42,10 @@ public class JWTDefinition {
         Date nowDate = new Date();
         // 过期时间
         Date expireDate = new Date(nowDate.getTime() + accessTokenExpire * 1000);
-        return Jwts.builder().setHeaderParam("typ", "JWT").setSubject(userId).setIssuedAt(nowDate)
+        Map headerParam = new HashMap<>();
+        headerParam.put("typ", "JWT");
+        headerParam.put("userId",userId);
+        return Jwts.builder().setHeaderParams(headerParam).setSubject(SystemConstants.ACCESS_TOKEN).setIssuedAt(nowDate)
                 .setExpiration(expireDate).signWith(SignatureAlgorithm.HS512, secret).compact();
         // 注意: JDK版本高于1.8, 缺少 javax.xml.bind.DatatypeConverter jar包,编译出错
     }
@@ -59,23 +62,22 @@ public class JWTDefinition {
         Date nowDate = new Date();
         // 过期时间
         Date expireDate = new Date(nowDate.getTime() + refreshTokenExpire * 1000);
-        return Jwts.builder().setHeaderParam("typ", "JWT").setSubject(userId).setIssuedAt(nowDate)
+        Map headerParam = new HashMap<>();
+        headerParam.put("typ", "JWT");
+        headerParam.put("userId",userId);
+        return Jwts.builder().setHeaderParams(headerParam).setSubject(SystemConstants.REFRESH_TOKEN).setIssuedAt(nowDate)
                 .setExpiration(expireDate).signWith(SignatureAlgorithm.HS512, secret).compact();
         // 注意: JDK版本高于1.8, 缺少 javax.xml.bind.DatatypeConverter jar包,编译出错
     }
     /**
-     * 获取签名信息
+     * 校验token
      * @param token
-     * @author geYang
-     * @date 2018-05-18 16:47
+     * @author lujunjie
+     * @date 2020-05-18 16:47
      */
-    public  Claims getClaimByToken(String token) {
-        try {
+    public  Claims getClaimByToken(String token) throws SignatureException,ExpiredJwtException{
             return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
-        } catch (Exception e) {
-            logger.debug("validate is token error ", e);
-            return null;
-        }
+
     }
 
     /**

@@ -2,6 +2,7 @@ package com.deng.gateway.route.filter;
 
 import java.nio.charset.StandardCharsets;
 
+import com.deng.gateway.constants.StatusCodeConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +41,8 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
     	String url = exchange.getRequest().getURI().getPath();
-    	Result result = null;
+    	Result accesstokenresult = null;
+        Result refreshtokenresult = null;
     	//判断url是否需要校验
     	if(!isNotCheck(url))
     	{
@@ -48,28 +50,33 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
     		 String accesstoken = exchange.getRequest().getHeaders().getFirst(SystemConstants.ACCESS_TOKEN);
     		 String refreshtoken = exchange.getRequest().getHeaders().getFirst(SystemConstants.REFRESH_TOKEN);
     		 String username = exchange.getRequest().getQueryParams().getFirst(SystemConstants.USER_NAME);
-    		 //获取refreshtoken策略
-    		 TokenStrategy refresstokenStrategy = TokenFactory.getTokenStrategy(SystemConstants.REFRESH_TOKEN);
-    		 result = refresstokenStrategy.checkisBlank(refreshtoken,username);
-    		 if(result!=null) {
-    			 byte[] bits = JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8);
-                 DataBuffer buffer = response.bufferFactory().wrap(bits);
-                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
-                 response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
-    			 return response.writeWith(Mono.just(buffer));
-    		 }
-    		//获取accesstoken策略
-    		 TokenStrategy accesstokenStrategy = TokenFactory.getTokenStrategy(SystemConstants.ACCESS_TOKEN);
-    		 result = accesstokenStrategy.checkisBlank(accesstoken,username);
-    		 if(result != null)
-    		 {
-    			 byte[] bits = JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8);
-                 DataBuffer buffer = response.bufferFactory().wrap(bits);
-                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
-                 response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
-                 return response.writeWith(Mono.just(buffer));
-    		 }
-    		 
+            //获取accesstoken策略
+            TokenStrategy accesstokenStrategy = TokenFactory.getTokenStrategy(SystemConstants.ACCESS_TOKEN);
+            accesstokenresult = accesstokenStrategy.checkisBlank(accesstoken,username);
+            if(accesstokenresult!=null)
+            {
+                if(StatusCodeConstants.UNFORMAT_ACCESS_TOKEN!=accesstokenresult.getCode()) {
+                    TokenStrategy refresstokenStrategy = TokenFactory.getTokenStrategy(SystemConstants.REFRESH_TOKEN);
+                    refreshtokenresult = refresstokenStrategy.checkisBlank(refreshtoken, username);
+
+                }
+                byte[] bits = null;
+                if(refreshtokenresult==null)
+                {
+                    bits = JSON.toJSONString(accesstokenresult).getBytes(StandardCharsets.UTF_8);
+                }
+                else
+                {
+                    bits = JSON.toJSONString(refreshtokenresult).getBytes(StandardCharsets.UTF_8);
+                }
+
+
+                DataBuffer buffer = response.bufferFactory().wrap(bits);
+                response.setStatusCode(HttpStatus.OK);
+                response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
+                return response.writeWith(Mono.just(buffer));
+            }
+
     	}
        
         return chain.filter(exchange);

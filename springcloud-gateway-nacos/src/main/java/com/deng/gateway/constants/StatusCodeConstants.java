@@ -31,5 +31,15 @@ public static final int REFRESH_TOKEN_EMPTY = 1004;
  * accesstoken 为空
  */
 public static final int ACCESS_TOKEN_EMPTY = 1005;
+
+/**
+ * accesstoken格式不正确
+ */
+public static final int UNFORMAT_ACCESS_TOKEN = 1006;
+
+/**
+ * refreshtoken格式不正确
+ */
+public static final int UNFORMAT_REFRESH_TOKEN = 1007;
 }
 
