@@ -25,7 +25,9 @@ public class FeignClientFallback implements FallbackFactory<Feignclient> {
         return new Feignclient() {
             @Override
             public FeignResult<Object> getTest(){
-                return FeignResult.builder().code(SystemConstant.RESULT_CODE_FAILURE).message(SystemConstant.RESULT_SERVICE_FAILURE).build();
+                LOG.info("您的请求被降级了！");
+                throw new RuntimeException();
+//                return FeignResult.builder().code(SystemConstant.RESULT_CODE_FAILURE).message(SystemConstant.RESULT_SERVICE_FAILURE).build();
             }
         };
     }
