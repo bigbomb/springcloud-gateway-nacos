@@ -34,10 +34,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public JSONObject otherExceptionHandler(Exception e) throws IOException {
-        logger.error(e.toString());
+        logger.error("服务提供者有异常！");
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", "300005");
-        jsonObject.put("message", "系统异常");
+        jsonObject.put("code", "10000");
+        jsonObject.put("message", "网络正忙，请稍后再试");
         return jsonObject;
     }
     @ExceptionHandler(value = RpcException.class)

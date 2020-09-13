@@ -8,6 +8,11 @@ public static final String TOKEN_NONE = "1001";
 public static final int STATUS_SUCCESS = 200;
 
 /**
+ * 网络正忙
+ */
+
+public static final int STATUS_BUSY = 9999;
+    /**
  * 返回accesstoken过期
  */
 public static final int ACCESS_TOKEN_EXPIRE = 1001;
