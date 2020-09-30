@@ -69,12 +69,18 @@
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.dev.project</groupId>
+            <artifactId>springcloud-dubbo-tracer</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 	<distributionManagement>
         <snapshotRepository>
             <!--和settings中的一致-->
             <id>third</id>
-            <url>http://192.168.25.98:8081/repository/third/</url>
+            <url>http://repo.shanghaionstar.com:8081/repository/maven-public/</url>
         </snapshotRepository>
         
     </distributionManagement>

@@ -4,12 +4,14 @@ import com.deng.order.client.service.Feignclient;
 import com.deng.order.client.service.dubbo.DubboService;
 import com.deng.order.client.service.entity.dubbo.DubboResult;
 import com.deng.order.client.service.entity.feign.FeignResult;
-import com.deng.order.common.exception.BusinessException;
+import com.deng.order.client.service.fallback.FeignClientFallback;
+import com.deng.tracer.dubbo.TraceIdGenerator;
+import com.deng.tracer.dubbo.TraceIdUtil;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.dubbo.config.annotation.Reference;
-import org.apache.dubbo.rpc.RpcException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 //import com.deng.order.client.service.Feignclient;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 public class TestController {
 
-    
+    private static final Logger LOG = LoggerFactory.getLogger(TestController.class);
     @Autowired
     private Feignclient feignclient;
 
@@ -38,6 +40,7 @@ public class TestController {
         try{
             result = feignclient.getTest();
             dubboService.getTest();
+            LOG.info("[服务消费方]执行业务逻辑开始");
         }catch(Exception e)
         {
             throw new RuntimeException();
