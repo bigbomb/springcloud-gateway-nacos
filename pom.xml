@@ -19,6 +19,7 @@
         <java.version>1.8</java.version>
         <jwt.version>0.9.1</jwt.version>
         <feignclient.version>2.2.4.RELEASE</feignclient.version>
+        <sleuth.version>2.2.4.RELEASE</sleuth.version>
         <alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
         <sentinel.nacos.version>1.7.2</sentinel.nacos.version>
         <sentinel.dubbo.version>1.7.2</sentinel.dubbo.version>
@@ -40,6 +41,12 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-sleuth</artifactId>
+                <version>${sleuth.version}</version>
             </dependency>
 <!--            <dependency>-->
 <!--			    <groupId>org.springframework.cloud</groupId>-->
@@ -115,23 +122,23 @@
 	
 
 
-    <distributionManagement>
-        <repository>
-            <id>third</id>
-            <url>http://192.168.25.98:8081/repository/maven-public/</url>
-        </repository>
-        
-    </distributionManagement>
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>third</id>-->
+<!--            <url>http://192.168.25.98:8081/repository/maven-public/</url>-->
+<!--        </repository>-->
+<!--        -->
+<!--    </distributionManagement>-->
 
-    <repositories>
-        <repository>
-            <id>third</id>
-            <name>Maven2 Central Repository</name>
-            <layout>default</layout>
-            <url>http://192.168.25.98:8081/repository/maven-public/</url>
-        </repository>
-        
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>third</id>-->
+<!--            <name>Maven2 Central Repository</name>-->
+<!--            <layout>default</layout>-->
+<!--            <url>http://192.168.25.98:8081/repository/maven-public/</url>-->
+<!--        </repository>-->
+<!--        -->
+<!--    </repositories>-->
 
     <organization>
         <name>test</name>
@@ -168,5 +175,6 @@
     <modules>
         <module>springcloud-gateway-nacos</module>
         <module>springcloud-orderservice</module>
+        <module>springcloud-dubbo-tracer</module>
     </modules>
 </project>

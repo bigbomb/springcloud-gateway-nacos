@@ -94,6 +94,10 @@
             <groupId>com.dev.project</groupId>
             <artifactId>springcloud-order-client-feign</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

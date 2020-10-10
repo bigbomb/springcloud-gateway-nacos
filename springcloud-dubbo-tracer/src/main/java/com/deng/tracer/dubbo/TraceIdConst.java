@@ -10,5 +10,5 @@ package com.deng.tracer.dubbo;
 interface TraceIdConst {
 
     /** 调用链id */
-    String TRACE_ID = "TRACE_ID";
+    String TRACE_ID = "X-B3-TraceId";
 }

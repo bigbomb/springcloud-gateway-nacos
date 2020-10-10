@@ -6,7 +6,7 @@
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %X{TRACE_ID} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - [traceId:%X{X-B3-TraceId}] - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -19,7 +19,7 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>%date [%thread] %-5level [%logger{50}] - %file:%line - %X{TRACE_ID} - %msg%n</pattern>
+            <pattern>%date [%thread] %-5level [%logger{50}] - %file:%line - [traceId:%X{X-B3-TraceId}] - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -32,7 +32,7 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>%date [%thread] %-5level [%logger{50}] %file:%line - %X{TRACE_ID} - %msg%n</pattern>
+            <pattern>%date [%thread] %-5level [%logger{50}] %file:%line - [traceId:%X{X-B3-TraceId}] - %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>

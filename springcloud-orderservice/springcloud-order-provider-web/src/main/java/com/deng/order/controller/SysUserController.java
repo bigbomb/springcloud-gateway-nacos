@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.deng.order.common.entity.User;
 import com.deng.order.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @RequestMapping("/sys-user")
 public class SysUserController {
+	private static final Logger LOG = LoggerFactory.getLogger(SysUserController.class);
 	@Autowired
 	private UserService userService;
 	
@@ -49,6 +52,7 @@ public class SysUserController {
 				.age("18")
 				.build();
 		userService.save(sysUser);
+		LOG.info("feignclient调用结束");
     	Result<Object> result = null;
 		try {
 			result = Result.builder()
