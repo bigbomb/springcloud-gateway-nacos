@@ -20,8 +20,8 @@ import com.deng.order.service.RedisService;
 @RequestMapping("/")
 public class TestController {
 
-    @Autowired
-    private KafkaProviderService kafkaProviderService;
+//    @Autowired
+//    private KafkaProviderService kafkaProviderService;
     
     @Autowired
     private RedisService redisService;
@@ -33,20 +33,20 @@ public class TestController {
      */
     @GetMapping("next")
     public String next(){
-    	throw new BusinessException(ExceptionTypeEnum.DATA_ERROR);
+    	throw new BusinessException(ExceptionTypeEnum.ERROR);
     }
     
     /**
      * 测试kafka的功能
      * @return
      */
-    @PostMapping("send")
-    public String kafkasend() {
-    	LocalDateTime localDateTime = LocalDateTime.now();
-    	kafkaProviderService.sendMessage(123456, "1231231231232", localDateTime);
-		return "ok";
-    	
-    }
+//    @PostMapping("send")
+//    public String kafkasend() {
+//    	LocalDateTime localDateTime = LocalDateTime.now();
+//    	kafkaProviderService.sendMessage(123456, "1231231231232", localDateTime);
+//		return "ok";
+//
+//    }
     
     /**
      * 测试redis的功能

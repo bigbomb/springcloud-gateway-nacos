@@ -64,10 +64,10 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
-        <dependency>
-           <groupId>com.alibaba</groupId>
-           <artifactId>fastjson</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--           <groupId>com.alibaba</groupId>-->
+<!--           <artifactId>fastjson</artifactId>-->
+<!--        </dependency>-->
         <dependency>
            <groupId>com.fasterxml.jackson.core</groupId>
            <artifactId>jackson-databind</artifactId>
@@ -95,6 +95,7 @@
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-okhttp</artifactId>
+            <version>10.4.0</version>
         </dependency>
     </dependencies>
 

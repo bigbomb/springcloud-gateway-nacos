@@ -1,9 +1,6 @@
 package com.deng.order.controller;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.deng.order.common.entity.User;
 import com.deng.order.service.UserService;
 import org.slf4j.Logger;
@@ -16,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deng.order.common.annotations.SystemLog;
 import com.deng.order.common.constant.SystemConstant;
-import com.deng.order.common.entity.Result;
+import com.deng.order.common.entity.Response;
 import com.deng.order.common.enums.LogTypeEnum;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,19 +43,19 @@ public class SysUserController {
      */
 	@GetMapping("list")
     @SystemLog(description = "查询用户列表", type = LogTypeEnum.OPERATION)
-    public Result<Object> test2(){
+    public Response<Object> test2(){
 		User sysUser = User.builder()
 				.nickname("test")
 				.age("18")
 				.build();
 		userService.save(sysUser);
 		LOG.info("feignclient调用结束");
-    	Result<Object> result = null;
+    	Response<Object> result = null;
 		try {
-			result = Result.builder()
+			result = Response.builder()
 					.code(SystemConstant.RESULT_CODE_SUCCESS)
 					.message(SystemConstant.RESULT_SERVICE_SUCCESS)
-					.body(objectMapper.writeValueAsString(sysUser))
+					.data(objectMapper.writeValueAsString(sysUser))
 					.build();
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block

@@ -9,10 +9,11 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import com.deng.order.config.KafkaConfig;
-
+@ConditionalOnProperty(prefix = "kafka",name = "enable", havingValue = "true")
 @Component
 public class KafkaConsumerService implements InitializingBean {
 	private static final String TOPIC = "test_topic";

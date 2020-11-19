@@ -17,6 +17,6 @@ public class FeignResult<T> {
     private String message;  
   
     //响应实体  
-    private T body;  
+    private T data;
 
 }  

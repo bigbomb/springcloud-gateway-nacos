@@ -2,13 +2,18 @@ package com.deng.order.common.exception;
 
 import java.io.IOException;
 
+
+import com.deng.order.common.entity.Response;
+import com.deng.order.common.enums.ExceptionTypeEnum;
+import javafx.util.Builder;
 import org.apache.dubbo.rpc.RpcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.alibaba.fastjson.JSONObject;
 
 /** 
 
@@ -24,28 +29,39 @@ public class GlobalExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = BusinessException.class)
-    public JSONObject businessExceptionHandler(BusinessException exception) throws IOException {
+    public Response businessExceptionHandler(BusinessException exception) throws IOException {
         logger.info(exception.toString());
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", exception.getCode());
-        jsonObject.put("message", exception.getMessage());
-        return jsonObject;
+        Response response = Response.builder()
+                .code(exception.getCode())
+                .message(exception.getMessage())
+                .build();
+        return response;
     }
 
     @ExceptionHandler(value = Exception.class)
-    public JSONObject otherExceptionHandler(Exception e) throws IOException {
-        logger.error("服务提供者有异常！");
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", "10000");
-        jsonObject.put("message", "网络正忙，请稍后再试");
-        return jsonObject;
+    public Response otherExceptionHandler(Exception e) throws IOException {
+        logger.error(e.toString());
+        Response response = Response.builder()
+                .code(10000)
+                .message("网络正忙，请稍后再试")
+                .build();
+        return response;
     }
     @ExceptionHandler(value = RpcException.class)
-    public JSONObject flowExceptionHandler(Exception e){
+    public Response flowExceptionHandler(Exception e){
         logger.error(e.toString());
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", "500");
-        jsonObject.put("message", "您的请求被限流了");
-        return jsonObject;
+        Response response = Response.builder()
+                .code(500)
+                .message("您的请求被限流了")
+                .build();
+        return response;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Response<String> methodArgumentNotValidException(MethodArgumentNotValidException e) {
+        // 从异常对象中拿到ObjectError对象
+        ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
+        // 然后提取错误提示信息进行返回
+        return new Response<>(ExceptionTypeEnum.VALIDATE_FAILED.getCode(), objectError.getDefaultMessage());
     }
 }

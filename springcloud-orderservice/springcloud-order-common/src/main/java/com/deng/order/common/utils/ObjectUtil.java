@@ -3,9 +3,10 @@ package com.deng.order.common.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cglib.beans.BeanMap;
-
-import com.alibaba.fastjson.JSON;
+//
 
 /** 
 
@@ -18,7 +19,7 @@ import com.alibaba.fastjson.JSON;
 */
 public class ObjectUtil {
 
-    public static String mapToString(Map<String, String[]> paramMap) {
+    public static String mapToString(Map<String, String[]> paramMap) throws JsonProcessingException {
 
         if (paramMap == null) {
             return "";
@@ -30,11 +31,11 @@ public class ObjectUtil {
             String paramValue = (param.getValue() != null && param.getValue().length > 0 ? param.getValue()[0] : "");
             params.put(key, paramValue);
         }
-       
-        return  JSON.toJSONString(params);
+        ObjectMapper mapper = new ObjectMapper();
+        return  mapper.writeValueAsString(params);
     }
 
-    public static String mapToStringAll(Map<String, String[]> paramMap) {
+    public static String mapToStringAll(Map<String, String[]> paramMap) throws JsonProcessingException {
 
         if (paramMap == null) {
             return "";
@@ -46,7 +47,8 @@ public class ObjectUtil {
             String paramValue = (param.getValue() != null && param.getValue().length > 0 ? param.getValue()[0] : "");
             params.put(key, paramValue);
         }
-        return JSON.toJSONString(params);
+        ObjectMapper mapper = new ObjectMapper();
+        return  mapper.writeValueAsString(params);
     }
 
     public static <T> Map<String, Object> beanToMap(T bean) {

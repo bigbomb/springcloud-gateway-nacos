@@ -9,12 +9,14 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * kafka配置
  */
+@ConditionalOnProperty(prefix = "kafka",name = "enable", havingValue = "true")
 @Configuration
 public class KafkaConfig implements InitializingBean {
 

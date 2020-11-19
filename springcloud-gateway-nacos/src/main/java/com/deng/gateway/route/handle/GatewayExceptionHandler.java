@@ -87,9 +87,10 @@ public class GatewayExceptionHandler extends AbstractExceptionHandler implements
 
     protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
         Map<String, Object> result = exceptionHandlerResult.get();
+        exceptionHandlerResult.remove();
         return ServerResponse.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .body(BodyInserters.fromObject(result));
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(result));
     }
 
 

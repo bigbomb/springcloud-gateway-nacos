@@ -16,9 +16,9 @@ public class BusinessException extends RuntimeException{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String code;
+	private int code;
 	private String message;
-	private String level;
+	private int level;
 	
 	public BusinessException(ExceptionTypeEnum exceptionTypeEnum)
 	{

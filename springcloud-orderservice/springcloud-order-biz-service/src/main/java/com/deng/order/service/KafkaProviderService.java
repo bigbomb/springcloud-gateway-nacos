@@ -7,13 +7,14 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.deng.order.common.entity.Order;
 
 
 
-
+@ConditionalOnProperty(prefix = "kafka",name = "enable", havingValue = "true")
 @Component
 public class KafkaProviderService {
 
