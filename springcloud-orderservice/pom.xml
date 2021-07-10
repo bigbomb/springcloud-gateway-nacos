@@ -29,43 +29,43 @@
 			<dependency>
 	           <groupId>com.dev.project</groupId>
 	    	   <artifactId>springcloud-order-biz-service</artifactId>
-	    	   <version>0.0.1-SNAPSHOT</version>
+	    	   <version>0.0.1-RELEASE</version>
 	        </dependency>
 	
 			<dependency>
 	           <groupId>com.dev.project</groupId>
 	    	   <artifactId>springcloud-order-client-dubbo</artifactId>
-	    	   <version>0.0.1-SNAPSHOT</version>
+	    	   <version>0.0.1-RELEASE</version>
 	        </dependency>
 			<dependency>
 				<groupId>com.dev.project</groupId>
 				<artifactId>springcloud-order-client-feign</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1-RELEASE</version>
 			</dependency>
 	        <dependency>
 	           <groupId>com.dev.project</groupId>
 	    	   <artifactId>springcloud-order-common</artifactId>
-	    	   <version>0.0.1-SNAPSHOT</version>
+	    	   <version>0.0.1-RELEASE</version>
 	        </dependency>
 	        <dependency>
 	           <groupId>com.dev.project</groupId>
 	    	   <artifactId>springcloud-order-dao</artifactId>
-	    	   <version>0.0.1-SNAPSHOT</version>
+	    	   <version>0.0.1-RELEASE</version>
 	        </dependency>
 	        <dependency>
 	           <groupId>com.dev.project</groupId>
 	    	   <artifactId>springcloud-order-integration</artifactId>
-	    	   <version>0.0.1-SNAPSHOT</version>
+	    	   <version>0.0.1-RELEASE</version>
 	        </dependency>
 	        <dependency>
 	           <groupId>com.dev.project</groupId>
 	    	   <artifactId>springcloud-order-consumer-web</artifactId>
-	    	   <version>0.0.1-SNAPSHOT</version>
+	    	   <version>0.0.1-RELEASE</version>
 	        </dependency>
            <dependency>
 	           <groupId>com.dev.project</groupId>
 	    	   <artifactId>springcloud-order-provider-web</artifactId>
-	    	   <version>0.0.1-SNAPSHOT</version>
+	    	   <version>0.0.1-RELEASE</version>
 	        </dependency>
 	        <dependency>
                 <groupId>org.elasticsearch.client</groupId>
