@@ -43,7 +43,6 @@
             <groupId>com.dev.project</groupId>
             <artifactId>springcloud-dubbo-tracer</artifactId>
             <version>0.0.1-RELEASE</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 
