@@ -5,7 +5,7 @@
      <parent>
         <groupId>com.dev.project</groupId>
         <artifactId>orderservice</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1-RELEASE</version>
     </parent>
     <packaging>jar</packaging>
 

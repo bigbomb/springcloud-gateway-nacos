@@ -5,14 +5,14 @@
     <groupId>com.dev.project</groupId>
     <artifactId>orderservice</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-RELEASE</version>
     <name>springcloud-order-service</name>
     <description>springcloud-order-service</description>
 
 	 <parent>
         <groupId>com.dev.project</groupId>
         <artifactId>springcloud-service</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1-RELEASE</version>
     </parent>
 	<properties>
 <!--		<dubbo.version>2.7.7</dubbo.version>-->

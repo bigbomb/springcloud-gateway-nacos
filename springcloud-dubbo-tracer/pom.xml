@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.dev.project</groupId>
         <artifactId>springcloud-service</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1-RELEASE</version>
     </parent>
     <groupId>com.dev.project</groupId>
     <artifactId>springcloud-dubbo-tracer</artifactId>

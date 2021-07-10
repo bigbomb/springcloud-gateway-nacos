@@ -5,7 +5,7 @@
     <groupId>com.dev.project</groupId>
     <artifactId>springcloud-service</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-RELEASE</version>
     <name>springcloud-service</name>
     <description>springcloud-service</description>
 
