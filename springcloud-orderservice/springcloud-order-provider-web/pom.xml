@@ -56,13 +56,22 @@
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-maven-plugin</artifactId>
+            <version>1.18.20.0</version>
+        </dependency>
     </dependencies>
-	<distributionManagement>
-        <snapshotRepository>
-            <!--和settings中的一致-->
-            <id>third</id>
-            <url>http://192.168.25.98:8081/repository/third/</url>
-        </snapshotRepository>
-        
-    </distributionManagement>
+<!--	<distributionManagement>-->
+<!--        <snapshotRepository>-->
+<!--            &lt;!&ndash;和settings中的一致&ndash;&gt;-->
+<!--            <id>third</id>-->
+<!--            <url>http://192.168.25.98:8081/repository/third/</url>-->
+<!--        </snapshotRepository>-->
+<!--        -->
+<!--    </distributionManagement>-->
 </project>
