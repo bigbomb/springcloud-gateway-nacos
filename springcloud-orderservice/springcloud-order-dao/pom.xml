@@ -28,7 +28,16 @@
 		    <groupId>org.mybatis</groupId>  
 		    <artifactId>mybatis-typehandlers-jsr310</artifactId>  
 		    <version>1.0.2</version>  
-		</dependency>  
+		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-maven-plugin</artifactId>
+            <version>1.18.20.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
