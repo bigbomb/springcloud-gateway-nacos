@@ -44,8 +44,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 5008
+      targetPort: 5008
       nodePort: 30088
       name: <APP_NAME>
   selector:
