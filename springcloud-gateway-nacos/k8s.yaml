@@ -46,7 +46,7 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30085
+      nodePort: 30088
       name: <APP_NAME>
   selector:
     app: <APP_NAME>
