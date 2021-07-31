@@ -1,0 +1,19 @@
+FROM 192.168.1.157:30082/openjdk:1.0
+
+#构建参数
+ARG JAR_FILE
+ARG JAR_FILE_DIR
+ARG WORK_PATH="/opt/demo"
+
+#环境变量
+ENV JAVA_OPTS="" \
+    JAR_FILE=${JAR_FILE}
+
+#设置时区
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
+COPY $JAR_FILE_DIR/$JAR_FILE $WORK_PATH/
+
+WORKDIR $WORK_PATH
+
+ENTRYPOINT exec java $JAVA_OPTS -jar $JAR_FILE
