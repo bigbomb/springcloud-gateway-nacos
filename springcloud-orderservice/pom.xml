@@ -17,7 +17,7 @@
 	<properties>
 <!--		<dubbo.version>2.7.7</dubbo.version>-->
 <!--		<dubbo-registry-nacos.version>2.7.7</dubbo-registry-nacos.version>-->
-		<alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
+		<alibaba.cloud.version>2.2.6.RELEASE</alibaba.cloud.version>
 		<springboot.version>2.3.2.RELEASE</springboot.version>
 		<feign.version>11.0</feign.version>
 		<cloud.openfeign.version>2.2.4.RELEASE</cloud.openfeign.version>

@@ -11,8 +11,8 @@
 
     <properties>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
-        <spring-nacos.discovery.version>2.2.1.RELEASE</spring-nacos.discovery.version>
-        <spring-nacos.config.version>2.2.1.RELEASE</spring-nacos.config.version>
+        <spring-nacos.discovery.version>2.2.5.RELEASE</spring-nacos.discovery.version>
+        <spring-nacos.config.version>2.2.5.RELEASE</spring-nacos.config.version>
         <nacos.client.version>1.4.2</nacos.client.version>
 <!--        <hystrix.version>2.2.3.RELEASE</hystrix.version>-->
         <context.version>2.2.3.RELEASE</context.version>
@@ -20,7 +20,7 @@
         <jwt.version>0.9.1</jwt.version>
         <feignclient.version>2.2.4.RELEASE</feignclient.version>
         <sleuth.version>2.2.4.RELEASE</sleuth.version>
-        <alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
+        <alibaba.cloud.version>2.2.5.RELEASE</alibaba.cloud.version>
         <sentinel.nacos.version>1.8.2</sentinel.nacos.version>
         <sentinel.dubbo.version>1.8.2</sentinel.dubbo.version>
     </properties>
@@ -104,6 +104,11 @@
             <dependency>
                 <groupId>com.alibaba.csp</groupId>
                 <artifactId>sentinel-transport-simple-http</artifactId>
+                <version>${sentinel.dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-parameter-flow-control</artifactId>
                 <version>${sentinel.dubbo.version}</version>
             </dependency>
 			 <dependency>
