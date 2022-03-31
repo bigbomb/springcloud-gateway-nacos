@@ -18,7 +18,7 @@
 <!--		<dubbo.version>2.7.7</dubbo.version>-->
 <!--		<dubbo-registry-nacos.version>2.7.7</dubbo-registry-nacos.version>-->
 		<alibaba.cloud.version>2.2.6.RELEASE</alibaba.cloud.version>
-		<springboot.version>2.3.2.RELEASE</springboot.version>
+		<springboot.version>2.5.12</springboot.version>
 		<feign.version>11.0</feign.version>
 		<cloud.openfeign.version>2.2.4.RELEASE</cloud.openfeign.version>
 		<seata.version>1.4.2</seata.version>
